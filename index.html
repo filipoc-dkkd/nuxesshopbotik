@@ -15,7 +15,6 @@
             --green: #22c55e;
         }
 
-        /* Светлая тема */
         .light-theme {
             --bg-color: #f4f4f5;
             --card-bg: #ffffff;
@@ -28,7 +27,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            padding-bottom: 90px; /* Место под нижнее меню */
+            padding-bottom: 90px;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -37,13 +36,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 20px 15px 15px 15px;
             position: sticky;
             top: 0;
             background-color: var(--bg-color);
             z-index: 10;
         }
-        .header-title { font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+        .header-title { font-size: 16px; font-weight: 800; letter-spacing: 1px; }
         .theme-toggle {
             background: var(--card-bg);
             border: none;
@@ -62,43 +61,35 @@
             margin: 0 15px 15px 15px;
             transition: background-color 0.3s;
         }
-        .title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .title { font-size: 20px; font-weight: bold; margin-bottom: 8px; line-height: 1.2; }
         .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 15px; line-height: 1.4; }
 
-        /* Кнопки */
-        .row-buttons { display: flex; gap: 10px; margin-top: 10px; }
-        .btn {
-            flex: 1; padding: 15px; border-radius: 12px; border: none; font-size: 15px; font-weight: 600;
-            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: opacity 0.2s;
+        /* Кнопка Black Russia */
+        .game-btn {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            margin: 0 15px 20px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .btn:active { opacity: 0.7; }
-        .btn-primary { background-color: var(--blue); color: white; }
-        .btn-secondary { background-color: #2a2a2a; color: white; }
-        .btn-full { width: 100%; margin-top: 15px; }
-
-        /* Сетка игр */
-        .grid-games { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 15px; margin-bottom: 20px; }
-        .game-item {
-            background-color: var(--card-bg); border-radius: 16px; padding: 15px; height: 120px;
-            display: flex; flex-direction: column; justify-content: flex-end; position: relative; cursor: pointer;
+        .game-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #000;
         }
-        .game-title { font-weight: bold; font-size: 14px; z-index: 2; }
-
-        /* Читы */
-        .cheat-card { margin-bottom: 15px; }
-        .cheat-title { font-size: 18px; font-weight: bold; color: var(--blue); margin-bottom: 5px; }
-        .cheat-list { font-size: 14px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5; }
-        .cheat-list li { margin-left: 20px; margin-bottom: 5px; }
+        .game-name { font-size: 18px; font-weight: bold; flex: 1; }
+        .arrow { color: var(--text-muted); font-size: 18px; }
 
         /* Доверие */
         .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .trust-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
-        .trust-icon { color: var(--green); font-size: 18px; }
-
-        /* Рейтинг */
-        .rating-card { display: flex; justify-content: space-between; align-items: center; }
-        .rating-score { font-size: 28px; font-weight: bold; }
-        .stars { color: #f1c40f; font-size: 18px; }
+        .trust-icon { font-size: 20px; }
 
         /* Нижнее меню */
         .bottom-nav {
@@ -118,7 +109,7 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Поля ввода */
+        /* Поля ввода для виртов */
         .input-field { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #333; background: transparent; color: var(--text-color); margin-bottom: 10px; font-size: 16px; }
         .input-field:focus { outline: none; border-color: var(--blue); }
         
@@ -129,6 +120,9 @@
         .price-calc { display: flex; gap: 10px; margin-bottom: 15px; }
         .price-calc > div { flex: 1; }
         .price-calc label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
+        
+        /* Вспомогательные кнопки */
+        .btn-blue { background-color: var(--blue); color: white; border: none; border-radius: 12px; padding: 16px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -144,47 +138,72 @@
         <div class="card">
             <div class="title">Игровая валюта — быстро и безопасно</div>
             <div class="subtitle">Выгодный курс, быстрая выдача и поддержка 24/7.</div>
-            <div class="row-buttons">
-                <button class="btn btn-primary" onclick="goTo('screen-virts')">Купить вирты &rarr;</button>
-                <button class="btn btn-secondary" onclick="goTo('screen-virts')">Продать вирты</button>
-            </div>
         </div>
 
         <div class="title" style="margin: 20px 15px 10px 15px;">Выберите игру</div>
-        <div class="grid-games">
-            <div class="game-item" onclick="goTo('screen-cheats')">
-                <div style="position: absolute; top: 15px; right: 15px; opacity: 0.1; font-size: 40px;">🐯</div>
-                <div class="game-title">BLACK RUSSIA</div>
-            </div>
-            <div class="game-item">
-                <div class="game-title">GTA 5 RP</div>
-            </div>
+        
+        <!-- Кнопка Black Russia на всю ширину -->
+        <div class="game-btn" onclick="goTo('screen-cheats')">
+            <!-- Замени ссылку ниже на свою картинку медведя, если нужно -->
+            <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/e/e6/Black_Russia_logo.png/240px-Black_Russia_logo.png" class="game-icon" alt="BR">
+            <div class="game-name">BLACK RUSSIA</div>
+            <div class="arrow">&rarr;</div>
         </div>
 
         <div class="title" style="margin: 20px 15px 10px 15px;">Почему нам доверяют</div>
         <div class="card" style="margin-bottom: 15px;">
             <div class="trust-grid">
-                <div class="trust-item"><span class="trust-icon">⏱</span> Быстрая выдача</div>
+                <div class="trust-item"><span class="trust-icon">🕒</span> Быстрая выдача</div>
                 <div class="trust-item"><span class="trust-icon">🎧</span> Поддержка 24/7</div>
-                <div class="trust-item"><span class="trust-icon">🛡</span> Безопасные сделки</div>
+                <div class="trust-item"><span class="trust-icon">🛡️</span> Безопасные сделки</div>
                 <div class="trust-item"><span class="trust-icon">₽</span> Лучшие цены</div>
             </div>
         </div>
+    </div>
 
-        <div class="card rating-card">
-            <div>
-                <div class="rating-score">4.9 из 5</div>
-                <div class="subtitle" style="margin: 0;">Отзывы покупателей</div>
+    <!-- ЭКРАН 2: ЧИТЫ -->
+    <div id="screen-cheats" class="screen">
+        <div class="card" style="margin-top: 15px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <button style="background: #2a2a2a; color: white; border: none; padding: 8px 12px; border-radius: 50%; cursor: pointer;" onclick="goTo('screen-home')">←</button>
+                <div class="title" style="margin: 0;">Софты для BR</div>
             </div>
-            <div class="stars">★★★★★</div>
+
+            <!-- Чит Автообмен -->
+            <div class="cheat-card" style="margin-bottom: 20px;">
+                <div class="title" style="font-size: 18px; color: var(--blue); margin-bottom: 5px;">🚗 Чит на Автообмен</div>
+                <div class="subtitle" style="margin-bottom: 15px;">
+                    <ul style="margin-left: 15px; margin-top: 5px;">
+                        <li>Автоматически принимает обмен</li>
+                        <li>Больше не нужно нажимать кнопки</li>
+                        <li>Анти-бан защита</li>
+                    </ul>
+                </div>
+                <button class="btn-blue" onclick="payCheat('Автообмен', 300)">Оплатить 300 Stars</button>
+            </div>
+
+            <hr style="border-color: #333; margin: 20px 0;">
+
+            <!-- Чит Казино -->
+            <div class="cheat-card">
+                <div class="title" style="font-size: 18px; color: var(--blue); margin-bottom: 5px;">🎰 Чит на Казино</div>
+                <div class="subtitle" style="margin-bottom: 15px;">
+                    <ul style="margin-left: 15px; margin-top: 5px;">
+                        <li>Увеличение шансов на выигрыш</li>
+                        <li>Настройка алгоритмов</li>
+                        <li>Обход защиты</li>
+                    </ul>
+                </div>
+                <button class="btn-blue" onclick="payCheat('Казино', 300)">Оплатить 300 Stars</button>
+            </div>
         </div>
     </div>
 
-    <!-- ЭКРАН 2: ПОКУПКА ВИРТОВ -->
+    <!-- ЭКРАН 3: ПОКУПКА ВИРТОВ (ВЫЗЫВАЕТСЯ ИЗ БЛОКА ВЫШЕ, ЕСЛИ НУЖНО) -->
     <div id="screen-virts" class="screen">
-        <div class="card">
+        <div class="card" style="margin-top: 15px;">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                <button class="btn btn-secondary" style="flex: 0; padding: 10px; border-radius: 50%;" onclick="goTo('screen-home')">←</button>
+                <button style="background: #2a2a2a; color: white; border: none; padding: 8px 12px; border-radius: 50%; cursor: pointer;" onclick="goTo('screen-home')">←</button>
                 <div class="title" style="margin: 0;">Покупка виртов</div>
             </div>
 
@@ -208,65 +227,19 @@
             </div>
 
             <div id="account-field">
-                <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; display: block;">Номер игрового счёта</label>
+                <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; display: block;">Номер счёта</label>
                 <input type="text" id="virts-account" class="input-field" placeholder="Введите номер счёта">
             </div>
 
-            <button class="btn btn-primary btn-full" onclick="payVirts()">Оплатить <span id="btn-price">15</span> Stars</button>
+            <button class="btn-blue" onclick="payVirts()">Оплатить <span id="btn-price">15</span> Stars</button>
         </div>
     </div>
 
-    <!-- ЭКРАН 3: ЧИТЫ -->
-    <div id="screen-cheats" class="screen">
-        <div class="card" style="margin-top: 15px;">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                <button class="btn btn-secondary" style="flex: 0; padding: 10px; border-radius: 50%;" onclick="goTo('screen-home')">←</button>
-                <div class="title" style="margin: 0;">Софты для Black Russia</div>
-            </div>
-
-            <!-- Чит Автообмен -->
-            <div class="cheat-card">
-                <div class="cheat-title">🚗 Чит на Автообмен</div>
-                <div class="cheat-list">
-                    <ul>
-                        <li>Автоматически принимает любой обмен</li>
-                        <li>Больше не нужно нажимать кнопки</li>
-                        <li>Полная безопасность (анти-бан)</li>
-                    </ul>
-                </div>
-                <button class="btn btn-primary btn-full" onclick="payCheat('Автообмен', 300)">Оплатить 300 Stars</button>
-            </div>
-
-            <hr style="border-color: #333; margin: 20px 0;">
-
-            <!-- Чит Казино -->
-            <div class="cheat-card">
-                <div class="cheat-title">🎰 Чит на Казино</div>
-                <div class="cheat-list">
-                    <ul>
-                        <li>Увеличение шансов на выигрыш</li>
-                        <li>Настройка алгоритмов под себя</li>
-                        <li>Обход защиты игры</li>
-                    </ul>
-                </div>
-                <button class="btn btn-primary btn-full" onclick="payCheat('Казино', 300)">Оплатить 300 Stars</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- НИЖНЕЕ МЕНЮ -->
+    <!-- НИЖНЕЕ МЕНЮ (Только Оформить и Профиль) -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="goTo('screen-home')">
             <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6z"/></svg>
             Оформить
-        </div>
-        <div class="nav-item" onclick="alert('Раздел отзывов в разработке')">
-            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
-            Отзывы
-        </div>
-        <div class="nav-item" onclick="alert('Напишите ваш вопрос. Мы ответим в скором времени.')">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
-            Поддержка
         </div>
         <div class="nav-item" onclick="alert('Профиль в разработке')">
             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -278,26 +251,27 @@
         const tg = window.Telegram.WebApp;
         tg.expand(); 
 
-        // Смена экранов
         function goTo(screenId) {
             document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Тема
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
         }
 
-        // Оплата банк/трейд
         function switchPayMethod(method) {
             const toggles = document.querySelectorAll('.toggle-btn');
             toggles.forEach(t => t.classList.remove('active'));
-            if(method === 'bank') { toggles[0].classList.add('active'); document.getElementById('account-field').style.display = 'block'; }
-            else { toggles[1].classList.add('active'); document.getElementById('account-field').style.display = 'none'; }
+            if(method === 'bank') { 
+                toggles[0].classList.add('active'); 
+                document.getElementById('account-field').style.display = 'block'; 
+            } else { 
+                toggles[1].classList.add('active'); 
+                document.getElementById('account-field').style.display = 'none'; 
+            }
         }
 
-        // Калькулятор виртов (1 млн = 15 Stars)
         function calcPrice() {
             let amount = document.getElementById('virts-amount').value;
             let price = amount * 15;
@@ -305,29 +279,18 @@
             document.getElementById('btn-price').innerText = price;
         }
 
-        // Отправка данных боту (Вирты)
         function payVirts() {
             let nick = document.getElementById('virts-nick').value;
             let amount = document.getElementById('virts-amount').value;
             let price = amount * 15;
             if(!nick) { alert("Введите игровой ник!"); return; }
 
-            tg.sendData(JSON.stringify({ 
-                type: 'virts', 
-                nick: nick, 
-                amount: amount, 
-                price: price 
-            }));
+            tg.sendData(JSON.stringify({ type: 'virts', nick: nick, amount: amount, price: price }));
             tg.close();
         }
 
-        // Отправка данных боту (Читы)
         function payCheat(name, price) {
-            tg.sendData(JSON.stringify({ 
-                type: 'cheat', 
-                name: name, 
-                price: price 
-            }));
+            tg.sendData(JSON.stringify({ type: 'cheat', name: name, price: price }));
             tg.close();
         }
     </script>
