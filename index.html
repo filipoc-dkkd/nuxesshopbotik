@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Shop</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { background-color: #0e0e0e; color: white; font-family: sans-serif; margin: 0; padding: 15px; padding-bottom: 80px; }
+        .hidden { display: none; }
+        .header { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .card { background-color: #1c1c1c; border-radius: 15px; padding: 20px; margin-bottom: 15px; }
+        .title { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 15px; }
+        
+        .btn-blue { background-color: #2f81f7; color: white; border: none; border-radius: 10px; padding: 15px; width: 100%; font-size: 16px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer; }
+        .btn-dark { background-color: #2a2a2a; color: white; border: none; border-radius: 10px; padding: 15px; width: 100%; font-size: 16px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer; }
+        
+        .search-box { background-color: #1c1c1c; border-radius: 15px; padding: 15px; color: #888; margin-bottom: 15px; display: flex; align-items: center; }
+        .server-item { background-color: #1c1c1c; border-radius: 15px; padding: 15px; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer; }
+        .server-num { background-color: #2a2a2a; padding: 5px 10px; border-radius: 10px; margin-right: 15px; font-size: 14px; }
+        
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; color: #888; font-size: 14px; }
+        .input-group input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #333; background-color: transparent; color: white; box-sizing: border-box; font-size: 16px; }
+        
+        .toggle-container { display: flex; background-color: #1c1c1c; border-radius: 10px; padding: 5px; margin-bottom: 15px; }
+        .toggle-btn { flex: 1; padding: 10px; text-align: center; border-radius: 10px; color: #888; }
+        .toggle-btn.active { background-color: #2f81f7; color: white; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1c1c1c; display: flex; justify-content: space-around; padding: 15px 0; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .nav-item { color: #888; font-size: 12px; text-align: center; }
+        .nav-item.active { color: #2f81f7; }
+    </style>
+</head>
+<body>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <div id="screen-main">
+        <div class="header">Nexus Shop</div>
+        <div class="card">
+            <div class="title">Игровая валюта — быстро и безопасно</div>
+            <div class="subtitle">Выгодный курс, быстрая выдача и поддержка 24/7.</div>
+            <button class="btn-blue" onclick="showScreen('screen-servers')">Купить вирты <span>&rarr;</span></button>
+            <button class="btn-dark" onclick="showScreen('screen-auto')">Чит на Автообмен <span>&rarr;</span></button>
+            <button class="btn-dark" onclick="showScreen('screen-casino')">Чит на Казино <span>&rarr;</span></button>
+        </div>
+        <div class="card">
+            <div class="title">4.9 из 5 ⭐⭐⭐⭐⭐</div>
+            <div class="subtitle">Отзывы покупателей</div>
+        </div>
+    </div>
+
+    <!-- ВЫБОР СЕРВЕРА -->
+    <div id="screen-servers" class="hidden">
+        <div class="header">Выберите сервер</div>
+        <div class="search-box">Поиск сервера</div>
+        <div class="server-item" onclick="showScreen('screen-buy')"><div class="server-num">01</div> <b>RED</b> <span style="margin-left:auto;">&rarr;</span></div>
+        <div class="server-item" onclick="showScreen('screen-buy')"><div class="server-num">02</div> <b>GREEN</b> <span style="margin-left:auto;">&rarr;</span></div>
+        <div class="server-item" onclick="showScreen('screen-buy')"><div class="server-num">03</div> <b>BLUE</b> <span style="margin-left:auto;">&rarr;</span></div>
+        <div class="server-item" onclick="showScreen('screen-buy')"><div class="server-num">04</div> <b>YELLOW</b> <span style="margin-left:auto;">&rarr;</span></div>
+    </div>
+
+    <!-- ПОКУПКА ВИРТОВ -->
+    <div id="screen-buy" class="hidden">
+        <div class="header">Оформление заказа</div>
+        <div class="input-group"><label>Игровой ник</label><input type="text" id="nickname" placeholder="Например, Alex_Walker"></div>
+        <div class="input-group" style="display: flex; gap: 10px;">
+            <div style="flex: 1;"><label>Кол-во (млн)</label><input type="number" id="amount" value="1" oninput="calculate()"></div>
+            <div style="flex: 1;"><label>Сумма (Stars)</label><input type="text" id="price" value="15" readonly></div>
+        </div>
+        <label style="color: #888; font-size: 14px; margin-bottom: 5px; display: block;">Как получить вирты?</label>
+        <div class="toggle-container"><div class="toggle-btn active">Банком</div><div class="toggle-btn">Трейдом</div></div>
+        <div class="input-group"><label>Номер игрового счёта</label><input type="text" id="account" placeholder="Введите номер счёта"></div>
+        <button class="btn-blue" onclick="payVirts()" style="justify-content: center;">Оплатить <span id="pay-price">15</span> Stars &rarr;</button>
+    </div>
+
+    <!-- АВТООБМЕН -->
+    <div id="screen-auto" class="hidden">
+        <div class="header">Чит на Автообмен</div>
+        <div class="card">
+            <div class="title">Что делает этот чит?</div>
+            <div class="subtitle">Софт сам принимает за игрока любой обмен. Вам больше не нужно нажимать кнопки подтверждения.</div>
+            <button class="btn-blue" onclick="payCheat('Автообмен', 300)" style="justify-content: center; margin-top: 20px;">Оплатить 300 Stars</button>
+        </div>
+    </div>
+
+    <!-- КАЗИНО -->
+    <div id="screen-casino" class="hidden">
+        <div class="header">Чит на Казино</div>
+        <div class="card">
+            <div class="title">Что делает этот чит?</div>
+            <div class="subtitle">Увеличивает шансы на выигрыш в играх казино. Полностью безопасен для аккаунта.</div>
+            <button class="btn-blue" onclick="payCheat('Казино', 300)" style="justify-content: center; margin-top: 20px;">Оплатить 300 Stars</button>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); 
+
+        function showScreen(id) {
+            document.querySelectorAll('div[id^="screen-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function calculate() {
+            let amount = document.getElementById('amount').value;
+            let price = amount * 15;
+            document.getElementById('price').value = price;
+            document.getElementById('pay-price').innerText = price;
+        }
+
+        function payVirts() {
+            let amount = document.getElementById('amount').value;
+            let price = amount * 15;
+            let nick = document.getElementById('nickname').value;
+            tg.sendData(JSON.stringify({ type: 'virts', price: price, amount: amount, nick: nick }));
+            tg.close();
+        }
+
+        function payCheat(name, price) {
+            tg.sendData(JSON.stringify({ type: 'cheat', name: name, price: price }));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
